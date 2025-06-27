@@ -17,7 +17,7 @@ A web-based stock price prediction application built using Flask and Machine Lea
 
 # How to Run The App
 1. You can choose either download the file or clone the repository using:
-git clone https://github.com/yourusername/stock-price-prediction-app.git
+git clone https://github.com/Fulin0210/stock-price-prediction-app.git
 cd stock-price-prediction-app
 
 2. Create a virtual environment.
