@@ -18,7 +18,7 @@ A web-based stock price prediction application built using Flask and Machine Lea
 # How to Run The App
 1. You can choose either download the file or clone the repository using:
 - git clone https://github.com/Fulin0210/FYP2-Stock-Price-Prediction-Web-Application.git
-- cd FYP2-WebApp
+- cd FYP2-Stock-Price-Prediction-Web-Application
 
 2. Create a virtual environment.
 python -m venv venv
