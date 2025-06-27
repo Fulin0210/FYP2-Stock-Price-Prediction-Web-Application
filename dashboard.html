@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Info Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav-bar-style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard-style.css') }}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body class="dashboard-page">
+    {% include 'header.html' %}
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2><i class="fas fa-chart-line"></i> Stock Analysis</h2>
+            
+            <!-- Sector Dropdown -->
+            <div class="dropdown-container mb-4">
+                <label for="sector-dropdown">Select Sector:</label>
+                <select id="sector-dropdown" class="form-control">
+                    <option value="">Select Sector</option>
+                </select>
+            </div>
+    
+            <!-- Stock Dropdown -->
+            <div class="dropdown-container mb-4">
+                <label for="stock-dropdown">Select Stock:</label>
+                <select id="search-bar" class="form-control">
+                    <option disabled selected>Select Stock</option>
+                </select>                
+            </div>
+    
+            <!-- Search Button -->
+            <button id="search-button" class="btn btn-primary btn-block">
+                <i class="fas fa-search"></i> Search
+            </button>
+        </aside>
+    
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Key Metrics -->
+            <div class="key-metrics">
+                <div class="metric-card">
+                    <div class="label">Change Percentage</div>
+                    <div class="value" id="change-percentage">-</div>
+                </div>
+                <div class="metric-card">
+                    <div class="label">Market Cap</div>
+                    <div class="value" id="total-market-cap">-</div>
+                </div>
+                <div class="metric-card">
+                    <div class="label">Previous Close</div>
+                    <div class="value" id="previous-close">-</div>
+                </div>
+            </div>
+
+            <!-- Controls Row -->
+            <div class="controls-row">
+                <div class="timeframe-selector">
+                    <button class="timeframe-btn" data-timeframe="1w">1W</button>
+                    <button class="timeframe-btn" data-timeframe="1m">1M</button>
+                    <button class="timeframe-btn" data-timeframe="6m">6M</button>
+                    <button class="timeframe-btn" data-timeframe="1y">1Y</button>
+                    <button class="timeframe-btn" data-timeframe="5y">5Y</button>
+                    <button class="timeframe-btn" data-timeframe="10y">10Y</button>
+                    <button class="timeframe-btn" data-timeframe="ytd">YTD</button>
+                </div>
+
+                <div class="chart-toggle">
+                    <button class="active" data-chart="line">Line Chart</button>
+                    <button data-chart="candlestick">Candlestick</button>
+                </div>
+            </div>
+
+            <!-- Charts Grid -->
+            <div class="charts-grid">
+                <!-- Main Chart -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Price Movement</div>
+                    </div>
+                    <canvas id="stockChart"></canvas>
+                    <div id="candlestickChart" style="width: 100%; height: 400px; display: none;"></div>
+                </div>
+
+                <!-- Top Stocks -->
+                <div class="top-stocks">
+                    <div class="section-header">
+                        <h3>Top Performers</h3>
+                        <div class="view-toggle">
+                            <button class="active" data-view="cards">Cards</button>
+                        </div>
+                    </div>
+                    <!-- Cards View -->
+                    <div class="stocks-list" id="stocksCardView">
+                    </div>
+                    
+                    <!-- Chart View -->
+                    <div class="stocks-chart" id="stocksChartView" style="display: none;">
+                        <canvas id="topPerformersChart"></canvas>
+                    </div>
+                    
+                    <!-- Performance Summary -->
+                    <div class="performance-summary">
+                        <div class="summary-header">
+                            <span>Sector Performance</span>
+                            <span class="timeframe-label"></span>
+                        </div>
+                        <div class="performance-bars">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="loading-indicator" class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i> Loading...
+            </div>
+            <div id="error-message" class="error-message">
+                <i class="fas fa-exclamation-circle"></i> <span></span>
+            </div>
+        </main>
+    </div>    
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
+    <script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/stockdashboard.js') }}"></script>
+</body>
+</html>

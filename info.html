@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning Model Information</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav-bar-style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/info-style.css') }}" />
+</head>
+<body class="info-page">
+    {% include 'header.html' %}
+    
+    <div class="main-container">
+        <div class="info-content">
+            <div class="title-container">
+                <h1><i class="fas fa-brain"></i> Meet Our Smart Predictors!</h1>
+                <p class="subtitle">Discover how our Machine Learning models help predict stock prices - explained in simple terms!</p>
+                <div class="model-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-chart-line"></i>
+                        <span class="stat-number">3</span>
+                        <span class="stat-label">Smart Models</span>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-percentage"></i>
+                        <span class="stat-number">88%</span>
+                        <span class="stat-label">Average Accuracy</span>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-clock"></i>
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Always Learning</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-layout">
+                <div class="left-panel">
+                    <div class="model-navigation">
+                        <button class="nav-btn active" data-target="all">All Models</button>
+                        <button class="nav-btn" data-target="forest">Forest of Wisdom</button>
+                        <button class="nav-btn" data-target="svr">Pattern Master</button>
+                        <button class="nav-btn" data-target="ann">Brain Network</button>
+                    </div>
+
+                    <div class="accordion" id="modelAccordion">
+                        <div class="card" data-model="forest">
+                            <div class="card-header" id="headingTwo">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <i class="fas fa-tree"></i> The Forest of Wisdom
+                                        <span class="model-badge">Team Player</span>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#modelAccordion">
+                                <div class="card-body justify-text">
+                                    <div class="model-image-container">
+                                        <img src="static/img/random forest.png" alt="Random Forest" class="model-image">
+                                    </div>
+                                    <div class="model-description">
+                                        <i class="fas fa-info-circle info-icon"></i>
+                                        <p>Imagine a group of wise trees in a forest, each making their own prediction about stock prices. Random Forest is like having hundreds of these trees working together! 
+                                        Each tree looks at different aspects of the market, and when they all share their predictions, we get a really smart forecast. It's like having a team of experts instead of just one - 
+                                        the more perspectives, the better the prediction!</p>
+                                    </div>
+                                    <div class="model-features">
+                                        <div class="feature">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Multiple perspectives</span>
+                                        </div>
+                                        <div class="feature">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Highly accurate</span>
+                                        </div>
+                                        <div class="feature">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Handles complex data</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="card" data-model="svr">
+                            <div class="card-header" id="headingThree">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        <i class="fas fa-project-diagram"></i> The Pattern Master
+                                        <span class="model-badge">Pattern Expert</span>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#modelAccordion">
+                                <div class="card-body justify-text">
+                                    <div class="model-image-container">
+                                        <img src="static/img/svr.png" alt="Support Vector Regression" class="model-image">
+                                    </div>
+                                    <div class="model-description">
+                                        <i class="fas fa-info-circle info-icon"></i>
+                                        <p>Meet SVR, our Pattern Master! It's like a detective who can spot hidden patterns in stock prices that others might miss. 
+                                        Think of it as having a super-powered magnifying glass that can see through market noise and find the real trends. 
+                                        When the market gets complicated, SVR is our go-to expert for making sense of all the twists and turns!</p>
+                                    </div>
+                                    <div class="model-features">
+                                        <div class="feature">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Pattern detection</span>
+                                        </div>
+                                        <div class="feature">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Handles noise well</span>
+                                        </div>
+                                        <div class="feature">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Great for trends</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="card" data-model="ann">
+                            <div class="card-header" id="headingFour">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        <i class="fas fa-network-wired"></i> The Brain Network
+                                        <span class="model-badge">Deep Learning</span>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#modelAccordion">
+                                <div class="card-body justify-text">
+                                    <div class="model-image-container">
+                                        <img src="static/img/ann.png" alt="Artificial Neural Network" class="model-image">
+                                    </div>
+                                    <div class="model-description">
+                                        <i class="fas fa-info-circle info-icon"></i>
+                                        <p>Our Artificial Neural Network is like a digital brain that learns from experience, just like how you get better at something the more you practice! 
+                                        It's inspired by how our human brains work, with lots of connected "neurons" that help it understand complex patterns in stock prices. 
+                                        The more data it sees, the smarter it gets at predicting what might happen next in the market. It's like having a super-smart friend who's always learning and getting better!</p>
+                                    </div>
+                                    <div class="model-features">
+                                        <div class="feature">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Learns continuously</span>
+                                        </div>
+                                        <div class="feature">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Adapts to changes</span>
+                                        </div>
+                                        <div class="feature">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Most advanced</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="right-panel">
+                    <div class="model-comparison">
+                        <h3><i class="fas fa-balance-scale"></i> Quick Model Comparison</h3>
+                        <div class="comparison-table">
+                            <div class="comparison-header">
+                                <div class="header-cell">Feature</div>
+                                <div class="header-cell">Forest of Wisdom</div>
+                                <div class="header-cell">Pattern Master</div>
+                                <div class="header-cell">Brain Network</div>
+                            </div>
+                            <div class="comparison-row">
+                                <div class="cell">Speed</div>
+                                <div class="cell"><i class="fas fa-bolt"></i> Fast</div>
+                                <div class="cell"><i class="fas fa-bolt"></i> Medium</div>
+                                <div class="cell"><i class="fas fa-bolt"></i> Slow</div>
+                            </div>
+                            <div class="comparison-row">
+                                <div class="cell">Accuracy</div>
+                                <div class="cell"><i class="fas fa-star"></i> Good</div>
+                                <div class="cell"><i class="fas fa-star"></i> Not Bad!</div>
+                                <div class="cell"><i class="fas fa-star"></i> Excellent</div>
+                            </div>
+                            <div class="comparison-row">
+                                <div class="cell">Complexity</div>
+                                <div class="cell"><i class="fas fa-signal"></i> Medium</div>
+                                <div class="cell"><i class="fas fa-signal"></i> Medium</div>
+                                <div class="cell"><i class="fas fa-signal"></i> High</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Model navigation
+            $('.nav-btn').click(function() {
+                $('.nav-btn').removeClass('active');
+                $(this).addClass('active');
+                
+                const target = $(this).data('target');
+                if (target === 'all') {
+                    $('.card').show();
+                } else {
+                    $('.card').hide();
+                    $(`.card[data-model="${target}"]`).show();
+                }
+            });
+
+            // Add hover effect to cards
+            $('.card').hover(
+                function() {
+                    $(this).find('.model-badge').addClass('pulse');
+                },
+                function() {
+                    $(this).find('.model-badge').removeClass('pulse');
+                }
+            );
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Stock Price Prediction</title>
+
+    <!-- Bootstrap and other libraries -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav-bar-style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="prediction-page">
+    <!-- Header -->
+    {% include 'header.html' %}
+
+    <!-- Error message container -->
+    <div id="error-message" class="error-message" style="display: none;"></div>
+
+    <div class="main-container">
+        <!-- Left sidebar (Form) -->
+        <div class="left">
+            <form id="predictionForm" method="POST">
+                <div class="dropdown-container">
+                    <label for="sector-dropdown">Select Sector:</label>
+                    <select id="sector-dropdown">
+                        <option value="">Select Sector</option>
+                    </select>
+                    <span id="sector-error" class="error-message error-space" style="display: none;"></span>
+                </div>
+                
+                <div class="dropdown-container">
+                    <label for="stock-dropdown">Select A Stock:</label>
+                    <select id="stock-dropdown">
+                        <option value="">Select A Stock</option>
+                    </select>
+                    <span id="stock-error" class="error-message error-space" style="display: none;"></span>
+                </div>
+                
+                <div class="select-container">
+                    <label>Select Machine Learning Model:</label>
+                    <select name="model" id="model">
+                        <option value="">Select A Model</option>
+                        <option value="RF">Random Forest</option>
+                        <option value="SVR">Support Vector Regression</option>
+                        <option value="ANN">Artificial Neural Network</option>
+                    </select>
+                    <span id="model-error" class="error-message error-space" style="display: none;"></span>
+                </div>
+                
+                <div class="select-container">
+                    <label for="prediction-date">Prediction Start Date:</label>
+                    <input type="date" name="prediction-date" id="prediction-date" class="form-control" />
+                    <span id="date-error" class="error-message error-space" style="display: none;"></span>
+                </div>
+                
+                <div class="select-container">
+                    <label for="timeframe">Select Timeframe:</label>
+                    <select name="timeframe" id="timeframe">
+                        <option value="">Select A Timeframe</option>
+                        <option value="1d">1 Day</option>
+                        <option value="1w">1 Week</option>
+                        <option value="1m">1 Month</option>
+                    </select>
+                    <span id="timeframe-error" class="error-message error-space" style="display: none;"></span>
+                </div>
+                
+                <button type="submit" class="submit-btn">Run Prediction</button>
+            </form>
+        </div>
+
+        <!-- Right content (Prediction results & metrics) -->
+        <div class="right">
+            <div class="result-container-bottom">
+                <div class="result-right">
+                    <div class="title-container">
+                        <h3>Performance Metrics</h3>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="gauge-container">
+                            <canvas id="mae-chart"></canvas>
+                            <div class="gauge-value" id="mae-value">-</div>
+                            <div class="gauge-label">MAE <i class="fas fa-info-circle" title="Mean Absolute Error: Measures the average difference between predicted and actual stock prices. Lower values indicate more accurate predictions. For example, MAE of 0.5 means predictions are off by RM0.50 on average."></i></div>
+                        </div>
+                        <div class="gauge-container">
+                            <canvas id="rmse-chart"></canvas>
+                            <div class="gauge-value" id="rmse-value">-</div>
+                            <div class="gauge-label">RMSE <i class="fas fa-info-circle" title="Root Mean Square Error: Similar to MAE but penalizes larger prediction errors more heavily. Lower values indicate better predictions. Useful for identifying if there are any large prediction errors."></i></div>
+                        </div>
+                        <div class="gauge-container">
+                            <canvas id="r2-chart"></canvas>
+                            <div class="gauge-value" id="r2-value">-</div>
+                            <div class="gauge-label">R² <i class="fas fa-info-circle" title="R-squared Score: Shows how well the model explains price variations. Ranges from 0 to 1, where 1 means perfect predictions. For example, R² of 0.75 means the model explains 75% of price movements."></i></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Future Price Prediction Graph -->
+                <div class="result-left">
+                    <div class="title-container">
+                        <h3><i class="fas fa-chart-line"></i> Future Price Prediction</h3>
+                        <div class="chart-controls">
+                            <button class="chart-type-btn active" data-type="line">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Line</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="graph-container">
+                        <div id="future-price-chart-container">
+                            <p class="no-data-message">
+                                <i class="fas fa-chart-line"></i>
+                                Select parameters and run prediction to see results
+                                <small>The graph will show future prediction(s) of the stock selected. </small>
+                                <br>
+                                <canvas id="futurePriceChart"></canvas>
+                            </p>
+                            <br>
+                            <br>
+                            <div id="future-prediction-graph" class="graph-container">
+                            </div>
+                        </div>                                                
+                        <div class="graph-loading" style="display: none;">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loading-indicator" class="loading-overlay" style="display: none;">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Processing prediction...</div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

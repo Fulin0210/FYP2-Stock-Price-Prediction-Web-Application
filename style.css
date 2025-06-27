@@ -1,0 +1,772 @@
+/* Reset and base styles */
+:root {
+    --primary-color: #6610f2;
+    --secondary-color: #0ea5e9;
+    --success-color: #22c55e;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --background-color: #f8fafc;
+    --text-color: #2d3748;
+    --border-color: #e2e8f0;
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+    --shadow-md: 0 2px 10px rgba(0,0,0,0.1);
+    --transition-default: all 0.2s ease;
+    --sidebar-width: 300px;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    background-color: var(--background-color);
+    height: 100%;
+}
+
+.title {
+    text-align: center;
+    font-size: 2em;
+    padding: 30px;
+    color: white;
+    background-color: black;
+}
+
+.main-container {
+    display: flex;
+    height: calc(100vh - 60px); /* Account for navbar height */
+    margin-top: 0;
+}
+
+.left {
+    width: 300px;
+    background: linear-gradient(135deg, #c2b1ff, var(--primary-color)); 
+    color: #ffffff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    overflow-y: auto;
+}
+
+/* Sidebar title */
+.left h3 {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Dropdown containers */
+.dropdown-container {
+    margin-bottom: 20px;
+    font-size: 1em;
+    align-items: center;  
+}
+
+.dropdown-container label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.dropdown-container select {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #333;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.select-container {
+    margin-bottom: 20px;
+    font-size: 1em;
+}
+
+.select-container label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.select-container select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    color: #333;
+}
+
+/* Date picker */
+#start_date {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    color: #333;
+}
+
+/* Button group */
+.button-group {
+    display: flex;
+    gap: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Buttons */
+.btn {
+    padding: 12px 20px;
+    font-size: 1.1em;
+    background-color: #ffffff;
+    color: black;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #e0e0e0;
+}
+
+.btn-active {
+    background-color: #007bff;
+    color: white;
+    border: 2px solid #0056b3;
+}
+
+/* Submit button */
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #c7c3ca;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #ffc107;
+}
+
+/* Main content area */
+.right {
+    position: fixed;
+    top: 60px;
+    right: 0;
+    width: 82.5%;
+    background-color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    height: calc(100vh - 60px);
+    overflow-y: auto; /* Allow vertical scrolling */
+}
+
+/* Metrics section */
+.metrics-container {
+    padding: 20px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    margin: 15px 0;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-top: 20px;
+    padding: 15px;
+}
+
+.metric-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(226, 232, 240, 0.6);
+    overflow: hidden;
+}
+
+.metric-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), #818cf8);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.metric-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.metric-card:hover::before {
+    opacity: 1;
+}
+
+.gauge-container {
+    position: relative;
+    width: 100%;
+    height: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    transition: all 0.3s ease;
+}
+
+.gauge-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.gauge-value {
+    font-size: 1.8rem;
+    font-weight: 600;
+    position: absolute;
+    bottom: 40px;
+    color: black;
+    text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.1);
+    font-feature-settings: "tnum";
+    font-variant-numeric: tabular-nums;
+    transition: all 0.3s ease;
+}
+
+.gauge-label {
+    font-size: 1rem;
+    color: #64748b;
+    position: absolute;
+    bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+}
+
+.gauge-label i {
+    font-size: 0.9rem;
+    color: #818cf8;
+    cursor: help;
+    transition: all 0.2s ease;
+}
+
+.gauge-label i:hover {
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.metrics-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+    margin-bottom: 10px;
+}
+
+#mae-value { color: #4ecdc4; }
+#rmse-value { color: #ff6b6b; }
+#r2-value { color: #54a0ff; }
+
+/* Result section */
+.result-container-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 15px;
+}
+
+.result-right {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.result-left {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 20px;
+    width: 100%;
+    flex-grow: 1;
+}
+
+.title-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    padding: 0 5px;
+}
+
+.title-container h3 {
+    font-size: 1.4rem;
+    color: #1e293b;
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.title-container h3 i {
+    color: #4f46e5;
+    font-size: 1.2rem;
+}
+
+.title-container p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+.graph-container {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.graph-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #4f46e5, #818cf8);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.graph-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.graph-container:hover::before {
+    opacity: 1;
+}
+
+.graph-container #future-prediction-graph {
+    width: 100%;
+    height:80%;
+}
+
+.no-data-message {
+    color: #64748b;
+    font-size: 1.1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 40px;
+    background: #f8fafc;
+    border-radius: 12px;
+    border: 2px dashed #e2e8f0;
+    width: 100%;
+    max-width: 400px;
+    height: 400px;
+    margin: 0 auto;
+}
+
+.no-data-message i {
+    font-size: 3rem;
+    color: #818cf8;
+    margin-bottom: 10px;
+    animation: pulse 2s infinite;
+}
+
+.no-data-message small {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.9em;
+    color: #888;
+}
+  
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.5; }
+}
+
+/* Chart tooltip customization */
+.chart-tooltip {
+    background: rgba(17, 24, 39, 0.95) !important;
+    backdrop-filter: blur(4px);
+    border-radius: 8px !important;
+    padding: 10px 14px !important;
+    color: white !important;
+    font-size: 0.9rem !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    border: none !important;
+}
+
+/* Loading state for graphs */
+.graph-loading {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    gap: 15px;
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+}
+
+.graph-loading .spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(79, 70, 229, 0.1);
+    border-top-color: #4f46e5;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.graph-loading::after {
+    content: 'Loading data...';
+    color: #4f46e5;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* Responsive adjustments */
+@media (min-width: 1024px) {
+    .result-container-bottom {
+        flex-direction: row;
+    }
+
+    .result-right {
+        flex: 0 0 350px; 
+    }
+
+    .result-left {
+        flex: 1; 
+        min-width: 0; 
+    }
+}
+
+@media (max-width: 1023px) {
+    .result-container-bottom {
+        flex-direction: column;
+    }
+
+    .result-right, .result-left {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .graph-container {
+        height: 300px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .metrics-grid {
+        max-width: 500px;  /* Slightly smaller on medium screens */
+    }
+    .gauge-container {
+        height: 130px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .left {
+        width: 100%;
+        height: auto;
+        padding: 15px;
+    }
+    
+    .right {
+        width: 100%;
+        position: relative;
+        top: 0;
+        height: auto;
+        min-height: 500px;
+    }
+    
+    .metrics-grid {
+        max-width: 100%;  /* Full width on mobile */
+    }
+    
+    .gauge-container {
+        height: 120px;
+        padding: 12px;
+    }
+    
+    .gauge-value {
+        font-size: 1.6rem;
+        bottom: 35px;
+    }
+    
+    .gauge-label {
+        font-size: 0.9rem;
+        bottom: 12px;
+    }
+
+    .graph-container {
+        height: 300px;
+        padding: 15px;
+    }
+
+    .title-container {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .chart-controls {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .chart-type-btn {
+        flex: 1;
+        justify-content: center;
+    }
+}
+
+/* Metric info icons and tooltips */
+.metric-info {
+    color: #95a5a6;
+    font-size: 0.9rem;
+    margin-left: 4px;
+    cursor: help;
+    transition: color 0.2s ease;
+}
+
+.metric-info:hover {
+    color: #2d3436;
+}
+
+/* Custom tooltip styling */
+[title] {
+    position: relative;
+}
+
+[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(45, 52, 54, 0.95);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    white-space: normal;
+    width: 220px;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    backdrop-filter: blur(4px);
+    line-height: 1.4;
+    text-align: left;
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Arrow for tooltip */
+[title]:hover::before {
+    content: '';
+    position: absolute;
+    bottom: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: rgba(45, 52, 54, 0.95) transparent transparent transparent;
+    z-index: 1001;
+}
+
+/* Loading indicator styles */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #6610f2;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.loading-text {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #2d3436;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Spinner for button */
+.spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* Error message styling */
+.error-message {
+    color: #e74c3c;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 8px 0;
+    font-size: 0.9rem;
+    display: none;
+}
+
+.error-space {
+    padding-top: 10px;
+    min-height: 20px;
+    margin-top: 5px;
+}
+
+.error-message.show {
+    display: block;
+    animation: errorShake 0.5s ease-in-out;
+}
+
+/* Add icon to error messages */
+.error-message::before {
+    content: '\f071';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 8px;
+    color: #e74c3c;
+}
+
+.prediction-line {
+    stroke: #54a0ff;
+    stroke-width: 2;
+    fill: none;
+}
+
+.historical-line {
+    stroke: #2d3436;
+    stroke-width: 2;
+    fill: none;
+}
+
+.chart-controls {
+    display: flex;
+    gap: 10px;
+    background: #f8fafc;
+    padding: 6px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+}
+
+.chart-type-btn {
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.chart-type-btn i {
+    font-size: 1.1rem;
+}
+
+.chart-type-btn:hover {
+    color: #4f46e5;
+    background: #f1f5f9;
+}
+
+.chart-type-btn.active {
+    background: #4f46e5;
+    color: white;
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Add animation to the graph container */
+.graph-container {
+    animation: fadeIn 0.5s ease-out;
+}
+
+#future-price-chart-container {
+    position: relative;   /* needed for Chart.js responsive */
+    height: 400px;        /* fixed or min height to show the graph properly */
+    width: 100%;          /* full width inside parent */
+    max-width: 100%;      /* avoid overflow */
+    margin: 0 auto;       /* center if needed */
+  }
+  
