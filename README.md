@@ -26,7 +26,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 3. Install all required dependencies.
 
-4. python app.py
+4. python main.py
 
 
 # Screenshot of Project Structure
